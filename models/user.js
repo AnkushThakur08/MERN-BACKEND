@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
-const { v4: uuidv4 } = require("uuid");
 const crypto = require("crypto");
+const { v4: uuidv4 } = require("uuid");
 const { Schema } = mongoose;
 
 const userSchema = new Schema(
@@ -52,14 +52,13 @@ const userSchema = new Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("User", userSchema);
-
 userSchema
   .virtual("password")
   .set(function (password) {
     this._password = password; //_ vala Private variable
+    // console.log(password);
     this.salt = uuidv4();
-    this.encry_password = securePassword(password);
+    this.encry_password = this. securePassword(password);
   })
   .get(function () {
     return this._password;
@@ -83,3 +82,5 @@ userSchema.methods = {
     }
   },
 };
+
+module.exports = mongoose.model("User", userSchema);
