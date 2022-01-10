@@ -31,6 +31,7 @@ router.post(
   signin
 );
 
+// TODO: SIGNOUT GET ROUTE
 router.get("/signout", signout);
 
 router.get("/testRoute", isSignedIn, (req, res) => {

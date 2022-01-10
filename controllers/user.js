@@ -10,6 +10,7 @@ exports.getUserById = (req, res, next, id) => {
     }
 
     req.profile = user;
+    // console.log(req.profile);
     next();
   });
 };
@@ -47,7 +48,7 @@ exports.updateUser = (req, res) => {
   );
 };
 
-console.log(Order);
+// console.log(Order);
 exports.userPurchaseList = (req, res) => {
   Order.find({ user: req.profile._id })
     .populate("user", "_id name")

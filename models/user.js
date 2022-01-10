@@ -58,7 +58,7 @@ userSchema
     this._password = password; //_ vala Private variable
     // console.log(password);
     this.salt = uuidv4();
-    this.encry_password = this. securePassword(password);
+    this.encry_password = this.securePassword(password);
   })
   .get(function () {
     return this._password;
