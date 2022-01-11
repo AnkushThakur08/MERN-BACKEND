@@ -1,4 +1,4 @@
-const Product = require("../models/products");
+const Product = require("../models/product");
 const formidable = require("formidable");
 const _ = require("lodash");
 const fs = require("fs");
@@ -12,13 +12,12 @@ exports.getProductById = (req, res, next, id) => {
           err: "Unable to Fetch the Product from the DB",
         });
       }
-
       req.product = product;
       next();
     });
 };
 
-exports.createProduct = () => {
+exports.createProduct = (req, res) => {
   let form = new formidable.IncomingForm();
   form.keepExtensions = true;
 
@@ -29,7 +28,14 @@ exports.createProduct = () => {
       });
     }
 
-    // TODO: Restriction on Fields
+    // Destructure of Fields
+    const { name, description, price, category, stock } = fields;
+
+    if (!name || !description || !price || !category || !stock) {
+      return res.status(400).json({
+        err: "All Fields are required",
+      });
+    }
 
     let product = new Product(fields);
 
@@ -40,9 +46,11 @@ exports.createProduct = () => {
         });
       }
 
-      product.photo.data = fs.readFileSync(file.photo.path);
-      product.photo.contentType = file.photo.type;
+      product.photo.data = fs.readFileSync(file.photo.filepath);
+      product.photo.contentType = file.photo.mimetype;
     }
+
+    console.log(product);
 
     // Save to the DB
     product.save((err, product) => {

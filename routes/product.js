@@ -10,7 +10,7 @@ router.param("userId", getUserById);
 router.param("productId", getProductById);
 
 // Actual routes
-router.get(
+router.post(
   "/product/create/:userId",
   isSignedIn,
   isAuthenticated,
