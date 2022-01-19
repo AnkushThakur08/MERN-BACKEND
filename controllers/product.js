@@ -1,6 +1,6 @@
 const Product = require("../models/product");
 const formidable = require("formidable");
-const _ = require("lodash");
+const _ = require("lodash"); /* Private Variable */
 const fs = require("fs");
 
 exports.getProductById = (req, res, next, id) => {
@@ -50,7 +50,7 @@ exports.createProduct = (req, res) => {
       product.photo.contentType = file.photo.mimetype;
     }
 
-    console.log(product);
+    // console.log(product);
 
     // Save to the DB
     product.save((err, product) => {
