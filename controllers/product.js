@@ -3,6 +3,7 @@ const formidable = require("formidable");
 const _ = require("lodash"); /* Private Variable */
 const fs = require("fs");
 
+// Parametes
 exports.getProductById = (req, res, next, id) => {
   Product.findById(id)
     .populate("category")
@@ -17,6 +18,7 @@ exports.getProductById = (req, res, next, id) => {
     });
 };
 
+// create Controllers
 exports.createProduct = (req, res) => {
   let form = new formidable.IncomingForm();
   form.keepExtensions = true;
@@ -63,4 +65,41 @@ exports.createProduct = (req, res) => {
       res.json(product);
     });
   });
+};
+
+// Read Controllers
+exports.getProduct = (req, res) => {
+  req.product.photo = undefined;
+
+  return res.json(req.product);
+};
+
+exports.photo = (req, res, next) => {
+  if (req.product.photo.data) {
+    res.set("Content-Type", req.product.photo.contentType);
+    return res.send(req.product.photo.data);
+  }
+  next();
+};
+
+// Delete Controllers
+exports.deleteProduct = (req, res) => {
+  let product = req.product;
+  product.remove((err, deletedProduct) => {
+    if (err) {
+      return res.status(400).json({
+        err: "Unable to delete the product",
+      });
+    }
+
+    res.json({
+      message: "Deleted Successfully",
+      deletedProduct,
+    });
+  });
+};
+
+// Update Controller
+exports.updateProduct = (req, res) => {
+  
 };
