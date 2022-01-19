@@ -139,3 +139,24 @@ exports.updateProduct = (req, res) => {
     });
   });
 };
+
+// Product Listing
+exports.getAllProduct = (req, res) => {
+  let limit = req.query.limit ? parseInt(req.query.limit) : 8;
+  let sortBy = req.query.sortBy ? req.query.sortBy : "_id";
+
+  Product.find()
+    .select("-photo")
+    .populate("category")
+    .sort([[sortBy, "asc"]])
+    .limit(limit)
+    .exec((err, products) => {
+      if (err || !products) {
+        return res.status(400).json({
+          err: "No Product Found in DB",
+        });
+      }
+
+      res.json(products);
+    });
+};
