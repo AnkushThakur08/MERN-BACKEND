@@ -18,7 +18,7 @@ router.param("userId", getUserById);
 router.param("categoryId", getCategoryById);
 
 // Actual Routes
-// TODO: Creating a Category by ADMIN, (CREATE)
+// CREATE
 router.post(
   "/category/create/:userId",
   isSignedIn,
@@ -27,13 +27,12 @@ router.post(
   createCategory
 );
 
-// TODO: Getting a Category from CategoryID (READ)
+// READ
 router.get("/category/:categoryId", getCategory);
 
-// TODO: Getting all Categories (READ)
 router.get("/categories", getAllCategory);
 
-// TODO: Updating Category by ADMIN (UPDATE)
+// UPDATE
 router.put(
   "/category/:categoryId/:userId",
   isSignedIn,
@@ -42,7 +41,7 @@ router.put(
   updateCategory
 );
 
-// TODO: Deleting a Category by ADMIN (DELETE)
+// DELETE
 router.delete(
   "/category/:categoryId/:userId",
   isSignedIn,

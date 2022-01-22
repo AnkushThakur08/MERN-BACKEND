@@ -43,3 +43,23 @@ exports.getAllOrders = (req, res) => {
       res.json(orders);
     });
 };
+
+exports.getOrderStatus = (req, res) => {
+  res.json(Order.schema.path("status").enumValues);
+};
+
+exports.updateStatus = (req, res) => {
+  Order.findOneAndUpdate(
+    { _id: req.body.orderId },
+    { $set: { status: req.body.status } },
+    (err, orderStatus) => {
+      if (err) {
+        return res.status(400).json({
+          err: "Failed to Update the Status in the DB",
+        });
+      }
+
+      res.json(orderStatus);
+    }
+  );
+};

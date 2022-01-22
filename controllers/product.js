@@ -161,11 +161,11 @@ exports.getAllProduct = (req, res) => {
     });
 };
 
-exports.getAllCategory = (req, res) => {
+exports.getAllUniqueCategory = (req, res) => {
   Product.distinct("category", {}, (err, category) => {
     if (err || !category) {
       return res.status(400).json({
-        err: "Unable to Fetch Categories",
+        err: "NO Category Found",
       });
     }
 
