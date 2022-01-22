@@ -161,6 +161,19 @@ exports.getAllProduct = (req, res) => {
     });
 };
 
+exports.getAllCategory = (req, res) => {
+  Product.distinct("category", {}, (err, category) => {
+    if (err || !category) {
+      return res.status(400).json({
+        err: "Unable to Fetch Categories",
+      });
+    }
+
+    res.json(category);
+  });
+};
+
+// Stock Managment
 exports.updateStock = (req, res, next) => {
   let myOperations = req.body.order.products.map((prod) => {
     return {
