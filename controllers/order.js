@@ -29,3 +29,17 @@ exports.createOrder = (req, res) => {
     res.json(order);
   });
 };
+
+exports.getAllOrders = (req, res) => {
+  Order.find()
+    .populate("user", "_id name")
+    .exec((err, orders) => {
+      if (err || !orders) {
+        return res.status(400).json({
+          err: "NO Order Found in the DB",
+        });
+      }
+
+      res.json(orders);
+    });
+};

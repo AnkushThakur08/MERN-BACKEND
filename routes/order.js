@@ -5,7 +5,11 @@ const { isSignedIn, isAuthenticated, isAdmin } = require("../controllers/auth");
 const { getUserById, pushOrderInPurchaseList } = require("../controllers/user");
 const { updateStock } = require("../controllers/product");
 
-const { getOrderById, createOrder } = require("../controllers/order");
+const {
+  getOrderById,
+  createOrder,
+  getAllOrders,
+} = require("../controllers/order");
 
 // PARAMS
 router.param("userId", getUserById);
@@ -23,6 +27,13 @@ router.post(
 );
 
 // READ
+router.get(
+  "/order/allOrder/:userId",
+  isSignedIn,
+  isAuthenticated,
+  isAdmin,
+  getAllOrders
+);
 
 // UPDATE
 
