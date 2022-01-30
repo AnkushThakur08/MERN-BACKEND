@@ -59,6 +59,7 @@ userSchema
     // console.log(password);
     this.salt = uuidv4();
     this.encry_password = this.securePassword(password);
+    // console.log(this.securePassword(password));
   })
   .get(function () {
     return this._password;
