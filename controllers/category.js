@@ -1,10 +1,10 @@
 const Category = require("../models/category");
 
 exports.getCategoryById = (req, res, next, id) => {
-  Category.findById(id).exec((err, cate) => {
-    if (err || !cate) {
+  Category.findById(id).exec((error, cate) => {
+    if (error || !cate) {
       return res.status(400).json({
-        err: "No Category found in the DB",
+        error: "No Category found in the DB",
       });
     }
 
@@ -16,10 +16,10 @@ exports.getCategoryById = (req, res, next, id) => {
 exports.createCategory = (req, res) => {
   console.log(req.body);
   const category = new Category(req.body);
-  category.save((err, category) => {
-    if (err) {
+  category.save((error, category) => {
+    if (error) {
       return res.status(400).json({
-        err: "Unable to create a category in the DB",
+        error: "Unable to create a category in the DB",
       });
     }
 
@@ -33,13 +33,13 @@ exports.getCategory = (req, res) => {
 };
 
 exports.getAllCategory = (req, res) => {
-  Category.find().exec((err, categories) => {
+  Category.find().exec((error, categories) => {
     console.log("ANKUSH");
     console.log(categories);
-    // console.log(err);
-    if (err) {
+    // console.log(error);
+    if (error) {
       return res.status(400).json({
-        err: "No Category Found in The DB",
+        error: "No Category Found in The DB",
       });
     }
 
@@ -56,10 +56,10 @@ exports.updateCategory = (req, res) => {
   category.name = req.body.name;
   // Front end se jo name aaega..usko category.name me save kr dege
 
-  category.save((err, updatedCategory) => {
-    if (err) {
+  category.save((error, updatedCategory) => {
+    if (error) {
       return res.status(400).json({
-        err: "Unable to update the Category in the DB",
+        error: "Unable to update the Category in the DB",
       });
     }
 
@@ -70,10 +70,10 @@ exports.updateCategory = (req, res) => {
 exports.removeCategory = (req, res) => {
   const category = req.category;
 
-  category.remove((err, category) => {
-    if (err) {
+  category.remove((error, category) => {
+    if (error) {
       return res.status(400).json({
-        err: "Unable to Delete the Category from the DB",
+        error: "Unable to Delete the Category from the DB",
       });
     }
 

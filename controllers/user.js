@@ -2,10 +2,10 @@ const User = require("../models/user");
 const { Order } = require("../models/order");
 
 exports.getUserById = (req, res, next, id) => {
-  User.findById(id).exec((err, user) => {
-    if (err || !user) {
+  User.findById(id).exec((error, user) => {
+    if (error || !user) {
       return res.status(400).json({
-        err: "No user found in the DB",
+        error: "No user found in the DB",
       });
     }
 
@@ -32,10 +32,10 @@ exports.updateUser = (req, res) => {
     { $set: req.body },
     { new: true, useFindAndModify: false },
 
-    (err, user) => {
-      if (err) {
+    (error, user) => {
+      if (error) {
         return res.status(400).json({
-          err: "You are NOT AUTHORIZED to update the user Information",
+          error: "You are NOT AUTHORIZED to update the user Information",
         });
       }
 
@@ -52,10 +52,10 @@ exports.updateUser = (req, res) => {
 exports.userPurchaseList = (req, res) => {
   Order.find({ user: req.profile._id })
     .populate("user", "_id name")
-    .exec((err, order) => {
-      if (err) {
+    .exec((error, order) => {
+      if (error) {
         return res.status(400).json({
-          err: "NO OrderList Found in the user",
+          error: "NO OrderList Found in the user",
         });
       }
 
@@ -85,10 +85,10 @@ exports.pushOrderInPurchaseList = (req, res, next) => {
     { $push: { purchases: purchases } },
     { new: true },
 
-    (err, purchases) => {
-      if (err) {
+    (error, purchases) => {
+      if (error) {
         return res.json({
-          err: "Unable to save the Product in The DB",
+          error: "Unable to save the Product in The DB",
         });
       }
       next();

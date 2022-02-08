@@ -18,11 +18,11 @@ exports.signup = (req, res) => {
     });
   }
 
-  const user = new User(req.body);
-  user.save((err, user) => {
-    if (err) {
+  const user  = new User(req.body);
+  user.save((error, user) => {
+    if (error) {
       return res.status(400).json({
-        err: "Unable to Save user in the DB",
+        error: "Unable to Save user in the DB",
       });
     }
 
@@ -47,16 +47,16 @@ exports.signin = (req, res) => {
     });
   }
 
-  User.findOne({ email }, (err, user) => {
-    if (err || !user) {
+  User.findOne({ email }, (error, user) => {
+    if (error || !user) {
       res.status(400).json({
-        err: "User Email does not exists",
+        error: "User Email does not exists",
       });
     }
 
     if (!user.autheticate(password)) {
       return res.status(401).json({
-        err: "Email & Password do not match",
+        error: "Email & Password do not match",
       });
     }
 
@@ -93,7 +93,7 @@ exports.isAuthenticated = (req, res, next) => {
   let checker = req.profile && req.auth && req.auth._id == req.profile._id;
   if (!checker) {
     return res.status(403).json({
-      err: "ACCESS DENIED",
+      error: "ACCESS DENIED",
     });
   }
 
@@ -103,7 +103,7 @@ exports.isAuthenticated = (req, res, next) => {
 exports.isAdmin = (req, res, next) => {
   if (req.profile.role === 0) {
     return res.status(403).json({
-      err: "You are NOT ADMIN, ACCESS DENIED",
+      error: "You are NOT ADMIN, ACCESS DENIED",
     });
   }
   next();

@@ -3,10 +3,10 @@ const { Order, ProductCart } = require("../models/order");
 exports.getOrderById = (req, res, next, id) => {
   Order.findById(id)
     .populate("products.product", "name price")
-    .exec((err, order) => {
-      if (err) {
+    .exec((error, order) => {
+      if (error) {
         return res.status(400).json({
-          err: "No order Found in DB",
+          error: "No order Found in DB",
         });
       }
 
@@ -19,10 +19,10 @@ exports.createOrder = (req, res) => {
   req.body.order.user = req.profile;
 
   const order = new Order(req.body.order);
-  order.save((err, order) => {
-    if (err) {
+  order.save((error, order) => {
+    if (error) {
       return res.status(400).json({
-        err: "Failed to save Order in the DB",
+        error: "Failed to save Order in the DB",
       });
     }
 
@@ -33,10 +33,10 @@ exports.createOrder = (req, res) => {
 exports.getAllOrders = (req, res) => {
   Order.find()
     .populate("user", "_id name")
-    .exec((err, orders) => {
-      if (err || !orders) {
+    .exec((error, orders) => {
+      if (error || !orders) {
         return res.status(400).json({
-          err: "NO Order Found in the DB",
+          error: "NO Order Found in the DB",
         });
       }
 
@@ -52,10 +52,10 @@ exports.updateStatus = (req, res) => {
   Order.findOneAndUpdate(
     { _id: req.body.orderId },
     { $set: { status: req.body.status } },
-    (err, orderStatus) => {
-      if (err) {
+    (error, orderStatus) => {
+      if (error) {
         return res.status(400).json({
-          err: "Failed to Update the Status in the DB",
+          error: "Failed to Update the Status in the DB",
         });
       }
 
