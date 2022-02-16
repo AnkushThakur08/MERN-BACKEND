@@ -16,6 +16,7 @@
     "lodash": "^4.17.21",
     "mongoose": "^6.0.14",
     "nodemon": "^2.0.15",
+    "stripe": "^8.202.0",
     "uuid": "^8.3.2"
   },
   "devDependencies": {},

@@ -19,7 +19,7 @@ exports.createCategory = (req, res) => {
   category.save((error, category) => {
     if (error) {
       return res.status(400).json({
-        error: "Unable to create a category in the DB",
+        error: "Unable to create a category in the Database",
       });
     }
 
