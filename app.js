@@ -13,6 +13,7 @@ const categoryRoutes = require("./routes/category");
 const productRoutes = require("./routes/product");
 const orderRoutes = require("./routes/order");
 const stripeRoutes = require("./routes/stripePayment");
+const paypalRoutes = require("./routes/paypalPayment");
 
 const app = express();
 
@@ -38,6 +39,7 @@ app.use("/api/backend", categoryRoutes);
 app.use("/api/backend", productRoutes);
 app.use("/api/backend", orderRoutes);
 app.use("/api/backend", stripeRoutes);
+app.use("/api/backend", paypalRoutes);
 
 // PORT
 const port = process.env.PORT || 8000;
