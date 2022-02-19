@@ -31,7 +31,7 @@ const orderSchema = new mongoose.Schema(
         "Shipped",
         "Processing",
         "Transist",
-        "Received",
+        "Recieved",
       ],
     },
     updated: Date,

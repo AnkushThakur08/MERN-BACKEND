@@ -5,7 +5,7 @@ const { isSignedIn, isAuthenticated } = require("../controllers/auth");
 const { processPayment, getToken } = require("../controllers/paypalPayment");
 const { getUserById } = require("../controllers/user");
 
-router.param("userId", getUserById);
+router.param("userId", getUserById); 
 
 router.get("/payment/gettoken/:userId", isSignedIn, isAuthenticated, getToken);
 
